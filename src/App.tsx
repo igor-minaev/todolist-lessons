@@ -34,8 +34,8 @@ function App() {
         setTasks(tasks.filter(t => t.id !== taskId))
     }
 
-    const addTask = () => {
-        const newTask: TaskType = {id: crypto.randomUUID(), title: 'newTitle', isDone: false}
+    const addTask = (title:string) => {
+        const newTask: TaskType = {id: crypto.randomUUID(), title, isDone: false}
         setTasks([newTask, ...tasks])
     }
 
