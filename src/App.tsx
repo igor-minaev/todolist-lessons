@@ -11,9 +11,9 @@ function App() {
     // redux
 
     const [tasks, setTasks] = useState<TaskType[]>([
-        {id: 1, title: 'HTML&CSS', isDone: true},
-        {id: 2, title: 'JS', isDone: true},
-        {id: 3, title: 'React', isDone: false}
+        {id: crypto.randomUUID(), title: 'HTML&CSS', isDone: true},
+        {id: crypto.randomUUID(), title: 'JS', isDone: true},
+        {id: crypto.randomUUID(), title: 'React', isDone: false}
     ])
 
     const [filter, setFilter] = useState<FilterType>('all')
@@ -30,8 +30,13 @@ function App() {
     const filteredTasksForRender: TaskType[] = getFilteredTasksForRender(tasks, filter)
 
 
-    const removeTask = (taskId: number) => {
+    const removeTask = (taskId: string) => {
         setTasks(tasks.filter(t => t.id !== taskId))
+    }
+
+    const addTask = () => {
+        const newTask: TaskType = {id: crypto.randomUUID(), title: 'newTitle', isDone: false}
+        setTasks([newTask, ...tasks])
     }
 
     const changeFilter = (newFilterValue: FilterType) => {
@@ -45,6 +50,7 @@ function App() {
                 tasks={filteredTasksForRender}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
+                addTask={addTask}
             />
         </div>
     );

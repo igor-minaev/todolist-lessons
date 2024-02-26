@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {FilterType} from './App';
 
 export type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -10,8 +10,9 @@ export type TaskType = {
 type TodoListPropsType = {
     title: string
     tasks: TaskType[]
-    removeTask: (taskId: number) => void
+    removeTask: (taskId: string) => void
     changeFilter: (newFilterValue: FilterType) => void
+    addTask: () => void
 }
 
 export const TodoList: FC<TodoListPropsType> = (
@@ -19,7 +20,8 @@ export const TodoList: FC<TodoListPropsType> = (
         title,
         tasks,
         removeTask,
-        changeFilter
+        changeFilter,
+        addTask
     }) => {
 
     // const listItems: JSX.Element[] = []
@@ -49,18 +51,20 @@ export const TodoList: FC<TodoListPropsType> = (
         ? <ul>{listItems}</ul>
         : <span>Your tasks list is empty</span>
 
+    const addTaskHandler = () => addTask()
+
     return (
         <div className="todolist">
             <h3>{title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <button onClick={addTaskHandler}>+</button>
             </div>
             {tasksList}
             <div>
-                <button onClick={()=>changeFilter('all')}>All</button>
-                <button onClick={()=>changeFilter('active')}>Active</button>
-                <button onClick={()=>changeFilter('completed')}>Completed</button>
+                <button onClick={() => changeFilter('all')}>All</button>
+                <button onClick={() => changeFilter('active')}>Active</button>
+                <button onClick={() => changeFilter('completed')}>Completed</button>
             </div>
         </div>
     );
