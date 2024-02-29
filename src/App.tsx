@@ -17,9 +17,13 @@ function App() {
     ])
     const [filter, setFilter] = useState<FilterType>('all')
 
-    const addTask = (title:string) => {
+    const addTask = (title: string) => {
         const newTask: TaskType = {id: crypto.randomUUID(), title, isDone: false}
         setTasks([newTask, ...tasks])
+    }
+
+    const changeTaskStatus = (taskId: string, newIsDoneValue: boolean) => {
+        setTasks(tasks.map(t => t.id === taskId ? {...t, isDone: !t.isDone} : t))
     }
 
     const removeTask = (taskId: string) => {
@@ -46,9 +50,11 @@ function App() {
             <TodoList
                 title={todoListTitle}
                 tasks={filteredTasksForRender}
+                filter={filter}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                changeTaskStatus={changeTaskStatus}
             />
         </div>
     );

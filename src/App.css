@@ -17,3 +17,24 @@
     background-color: #50d3c3;
     height: max-content;
 }
+
+.task {
+    font-weight: bold;
+}
+
+.taskDone {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.activeBtn {
+    background-color: #0b7e5e;
+    border: 2px solid #0b7e5e;
+    color: white;
+    border-radius: 5px;
+}
+
+.inputError {
+    border: 2px solid red;
+    outline: none;
+}
