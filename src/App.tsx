@@ -15,8 +15,20 @@ function App() {
         {id: crypto.randomUUID(), title: 'JS', isDone: true},
         {id: crypto.randomUUID(), title: 'React', isDone: false}
     ])
-
     const [filter, setFilter] = useState<FilterType>('all')
+
+    const addTask = (title:string) => {
+        const newTask: TaskType = {id: crypto.randomUUID(), title, isDone: false}
+        setTasks([newTask, ...tasks])
+    }
+
+    const removeTask = (taskId: string) => {
+        setTasks(tasks.filter(t => t.id !== taskId))
+    }
+
+    const changeFilter = (newFilterValue: FilterType) => {
+        setFilter(newFilterValue)
+    }
     const getFilteredTasksForRender = (allTasks: TaskType[], filter: FilterType): TaskType[] => {
         switch (filter) {
             case 'active':
@@ -28,20 +40,6 @@ function App() {
         }
     }
     const filteredTasksForRender: TaskType[] = getFilteredTasksForRender(tasks, filter)
-
-
-    const removeTask = (taskId: string) => {
-        setTasks(tasks.filter(t => t.id !== taskId))
-    }
-
-    const addTask = (title:string) => {
-        const newTask: TaskType = {id: crypto.randomUUID(), title, isDone: false}
-        setTasks([newTask, ...tasks])
-    }
-
-    const changeFilter = (newFilterValue: FilterType) => {
-        setFilter(newFilterValue)
-    }
 
     return (
         <div className="App">
