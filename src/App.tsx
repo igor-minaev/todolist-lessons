@@ -1,14 +1,26 @@
 import React, {useState} from 'react';
 import './App.css';
 import {TaskType, TodoList} from './TodoList';
+import {v1} from 'uuid';
 
 export type FilterType = 'all' | 'active' | 'completed'
+
+type TodolistsType = {
+    id: string
+    title: string
+    filter: FilterType
+}
 
 function App() {
     const todoListTitle: string = 'What to learn'
 
     // useReducer()
     // redux
+
+    const [todolists, setTodolists] = useState<TodolistsType[]>([
+        {id: v1(), title: 'What to learn', filter: 'all'},
+        {id: v1(), title: 'What to buy', filter: 'all'}
+    ])
 
     const [tasks, setTasks] = useState<TaskType[]>([
         {id: crypto.randomUUID(), title: 'HTML&CSS', isDone: true},
