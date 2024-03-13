@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FC, useRef, KeyboardEvent, useState} from 'react';
 import {FilterType} from './App';
+import {AddItemForm} from './AddItemForm';
 
 export type TaskType = {
     id: string
@@ -66,8 +67,8 @@ export const TodoList: FC<TodoListPropsType> = (
     // }
     // <input ref={titleInput}/>
 
-    const [newTaskTitle, setNewTaskTitle] = useState('')
-    const [error, setError] = useState(false)
+    // const [newTaskTitle, setNewTaskTitle] = useState('')
+    // const [error, setError] = useState(false)
 
     const listItems: JSX.Element[] = filteredTasksForRender.map(t => {
         const removeTaskHandler = () => removeTask(id, t.id)
@@ -85,22 +86,22 @@ export const TodoList: FC<TodoListPropsType> = (
         ? <ul>{listItems}</ul>
         : <span>Your tasks list is empty</span>
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false)
-        setNewTaskTitle(e.currentTarget.value)
-    }
+    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     error && setError(false)
+    //     setNewTaskTitle(e.currentTarget.value)
+    // }
 
-    const addTaskHandler = () => {
-        const trimmedNewTaskTitle = newTaskTitle.trim()
-        if (trimmedNewTaskTitle) {
-            addTask(id, trimmedNewTaskTitle)
-        } else {
-            setError(true)
-        }
-        setNewTaskTitle('')
-    }
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTaskHandler()
-    const errorMessage = error && <p style={{color: 'red'}}>Title is required!</p>
+    // const addTaskHandler = () => {
+    //     const trimmedNewTaskTitle = newTaskTitle.trim()
+    //     if (trimmedNewTaskTitle) {
+    //         addTask(id, trimmedNewTaskTitle)
+    //     } else {
+    //         setError(true)
+    //     }
+    //     setNewTaskTitle('')
+    // }
+    // const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTaskHandler()
+    // const errorMessage = error && <p style={{color: 'red'}}>Title is required!</p>
     const removeTodolistHandler = () => removeTodolist(id)
 
     return (
@@ -109,13 +110,13 @@ export const TodoList: FC<TodoListPropsType> = (
                 {title}
                 <button onClick={removeTodolistHandler}>x</button>
             </h3>
-
-            <div>
-                <input className={error ? 'inputError' : ''} value={newTaskTitle} onChange={onChangeHandler}
-                       onKeyDown={onKeyDownHandler}/>
-                <button onClick={addTaskHandler}>+</button>
-            </div>
-            {errorMessage}
+            <AddItemForm/>
+            {/*<div>*/}
+            {/*    <input className={error ? 'inputError' : ''} value={newTaskTitle} onChange={onChangeHandler}*/}
+            {/*           onKeyDown={onKeyDownHandler}/>*/}
+            {/*    <button onClick={addTaskHandler}>+</button>*/}
+            {/*    {errorMessage}*/}
+            {/*</div>*/}
             {tasksList}
             <div>
                 <button className={filter === 'all' ? 'activeBtn' : ''} onClick={() => changeFilter(id, 'all')}>All
