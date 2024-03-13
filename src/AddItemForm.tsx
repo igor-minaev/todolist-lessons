@@ -1,26 +1,30 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
-export const AddItemForm = () => {
-    const [newTaskTitle, setNewTaskTitle] = useState('')
+type PropsType = {
+    onClick: (title: string) => void
+}
+
+export const AddItemForm = (props: PropsType) => {
+    const [newTitle, setNewTitle] = useState('')
     const [error, setError] = useState(false)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false)
-        setNewTaskTitle(e.currentTarget.value)
+        setNewTitle(e.currentTarget.value)
     }
     const addTaskHandler = () => {
-        const trimmedNewTaskTitle = newTaskTitle.trim()
+        const trimmedNewTaskTitle = newTitle.trim()
         if (trimmedNewTaskTitle) {
-            addTask(id, trimmedNewTaskTitle)
+            props.onClick(trimmedNewTaskTitle)
         } else {
             setError(true)
         }
-        setNewTaskTitle('')
+        setNewTitle('')
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && addTaskHandler()
     const errorMessage = error && <p style={{color: 'red'}}>Title is required!</p>
     return (
         <div>
-            <input className={error ? 'inputError' : ''} value={newTaskTitle} onChange={onChangeHandler}
+            <input className={error ? 'inputError' : ''} value={newTitle} onChange={onChangeHandler}
                    onKeyDown={onKeyDownHandler}/>
             <button onClick={addTaskHandler}>+</button>
             {errorMessage}
